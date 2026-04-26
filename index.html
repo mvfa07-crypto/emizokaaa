@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>emizoka 💖</title>
+
+<style>
+body{
+  margin:0;
+  font-family:system-ui;
+  background: radial-gradient(circle at 30% 20%, #0a0f2c, #02030a 70%);
+  color:white;
+  overflow-y:auto;
+}
+
+/* SCROLL BONITO */
+::-webkit-scrollbar{
+  width:8px;
+}
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(#38bdf8,#ff4d8d);
+  border-radius:10px;
+}
+
+/* ESTRELAS */
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:0;
+}
+
+/* CONTEÚDO */
+.content{
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding-bottom:60px;
+}
+
+/* TÍTULO */
+h1{
+  margin:50px 0;
+  font-size:62px;
+  font-family:'Montserrat', sans-serif;
+  font-weight:900;
+  text-align:center;
+  color:#fff;
+  letter-spacing:3px;
+
+  text-shadow:
+    0 0 5px #fff,
+    0 0 10px #38bdf8,
+    0 0 20px #38bdf8,
+    0 0 40px #ff4d8d,
+    0 0 80px #ff4d8d;
+
+  animation:neonPulse 1.6s infinite alternate;
+}
+
+@keyframes neonPulse{
+  0%{text-shadow: 0 0 5px #fff, 0 0 10px #38bdf8, 0 0 20px #38bdf8, 0 0 40px #ff4d8d, 0 0 80px #ff4d8d;}
+  100%{text-shadow: 0 0 5px #fff, 0 0 10px #38bdf8, 0 0 20px #38bdf8, 0 0 40px #ff4d8d, 0 0 80px #ff4d8d;}
+}
+
+/* PLAYER */
+.player{
+  margin-bottom:20px;
+  text-align:center;
+}
+
+button{
+  padding:10px 18px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+  background:linear-gradient(90deg,#38bdf8,#ff4d8d);
+  color:white;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.05);
+}
+
+/* FOTOS */
+.container{
+  display:flex;
+  gap:25px;
+  flex-wrap:wrap;
+  justify-content:center;
+  max-width:900px;
+}
+
+.card{
+  width:180px;
+  height:240px;
+  perspective:1000px;
+  cursor:pointer;
+}
+
+.card-inner{
+  width:100%;
+  height:100%;
+  position:relative;
+  transform-style:preserve-3d;
+  transition:0.8s;
+}
+
+.card.flipped .card-inner{
+  transform:rotateY(180deg);
+}
+
+.card-front,.card-back{
+  position:absolute;
+  width:100%;
+  height:100%;
+  border-radius:16px;
+  backface-visibility:hidden;
+  overflow:hidden;
+}
+
+.card-front{
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(10px);
+  padding:8px;
+}
+
+.card-front img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:12px;
+  transition:0.3s;
+}
+
+.card:hover img{
+  transform:scale(1.05);
+}
+
+.card-back{
+  background:linear-gradient(135deg,#38bdf8,#ff4d8d);
+  color:black;
+  transform:rotateY(180deg);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:15px;
+  font-weight:bold;
+}
+
+/* TEXTO FINAL */
+.frase{
+  max-width:700px;
+  margin:50px 20px;
+  padding:25px;
+
+  text-align:center;
+  font-size:18px;
+  line-height:1.8;
+
+  color:#ffffff;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);
+
+  border-radius:16px;
+  box-shadow:0 0 25px rgba(255, 77, 141, 0.15);
+
+  animation:fadeUp 2s ease;
+}
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(30px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+
+<div class="content">
+
+<h1>✨ EMIZOKAAA ✨</h1>
+
+<!-- PLAYER -->
+<div class="player">
+  
+
+  <div style="margin-top:10px">
+    <iframe id="spotify"
+      src="https://open.spotify.com/embed/track/0NkkbKSzQ50mAoSUbQpgLw"
+      width="300" height="80"
+      frameborder="0"
+      allow="autoplay; encrypted-media">
+    </iframe>
+  </div>
+</div>
+
+<!-- FOTOS -->
+<div class="container">
+
+  <div class="card" onclick="flip(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <img src="foto1.png" alt="">
+      </div>
+      <div class="card-back">Você é tudo o que eu sempre sonhei 💖</div>
+    </div>
+  </div>
+
+  <div class="card" onclick="flip(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <img src="foto2.png" alt="">
+      </div>
+      <div class="card-back">No fundo dos seus olhos vejo meu futuro ✨</div>
+    </div>
+  </div>
+
+  <div class="card" onclick="flip(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <img src="foto3.png" alt="">
+      </div>
+      <div class="card-back">E essa piquitucha aqui, que linda</div>
+    </div>
+  </div>
+
+  <div class="card" onclick="flip(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <img src="foto4.png" alt="">
+      </div>
+      <div class="card-back">As vezes te vejo assim, toda menininha 💖</div>
+    </div>
+  </div>
+
+  <div class="card" onclick="flip(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <img src="foto5.png" alt="">
+      </div>
+      <div class="card-back">Viver pra mim, é compartilhar o melhor da vida com você amoreco</div>
+    </div>
+  </div>
+
+  <div class="card" onclick="flip(this)">
+    <div class="card-inner">
+      <div class="card-front">
+        <img src="foto6.png" alt="">
+      </div>
+      <div class="card-back">Eu escolho você todos os dias, você para todo o sempre 💞</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TEXTO -->
+<p class="frase">
+  💖 Hoje é um dia de imensa importância, pois o amor da minha vida completa 17 anos. 
+  Sinto um orgulho profundo de quem você é hoje e uma admiração ainda maior por tudo aquilo que ainda irá se tornar.
+  Desde o dia em que te conheci, não houve sequer um momento em que eu pensasse em desistir de tudo,
+  porque você me inspira diariamente a ser alguém melhor.
+  <br><br>
+
+  Feliz aniversário, minha princesaaaaa! Nunca se esqueça de que estarei sempre ao seu lado,
+  em todos os momentos, para celebrar suas alegrias e enfrentar qualquer desafio junto com você.
+  <br><br>
+
+  Minha alma é mais alegre do lado da sua.
+  <br><br>
+
+  <span style="font-size:20px; color:#ff4d8d;">
+    EU TE AMO MUITO MULHER ❤️
+  </span>
+</p>
+
+</div>
+
+<script>
+function flip(el){
+  el.classList.toggle("flipped");
+}
+
+let playing=false;
+const baseMusic="https://open.spotify.com/embed/track/0NkkbKSzQ50mAoSUbQpgLw";
+
+function toggleMusic(){
+  const iframe=document.getElementById("spotify");
+
+  if(!playing){
+    iframe.src = baseMusic + "?autoplay=1";
+    playing=true;
+  }else{
+    iframe.src = baseMusic;
+    playing=false;
+  }
+}
+
+/* ESTRELAS */
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+
+let stars=[];
+
+function resize(){
+  canvas.width=innerWidth;
+  canvas.height=innerHeight;
+}
+resize();
+window.addEventListener("resize",resize);
+
+for(let i=0;i<140;i++){
+  stars.push({
+    x:Math.random()*innerWidth,
+    y:Math.random()*innerHeight,
+    r:Math.random()*1.5,
+    s:Math.random()*0.5+0.2
+  });
+}
+
+function animate(){
+  ctx.fillStyle="#02030a";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  for(let s of stars){
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+
+    ctx.globalAlpha=Math.random()*0.8+0.2;
+    ctx.fillStyle="white";
+    ctx.fill();
+
+    s.y+=s.s;
+    s.x+=Math.sin(s.y*0.01)*0.3;
+
+    if(s.y>canvas.height){
+      s.y=0;
+      s.x=Math.random()*canvas.width;
+    }
+  }
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+</body>
+</html>
